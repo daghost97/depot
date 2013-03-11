@@ -4,6 +4,15 @@ class StoreControllerTest < ActionController::TestCase
   test "should get index" do
     get :index
     assert_response :success
+    # number sign (#) match on id attributes
+    assert_select '#columns #side a', minimum: 4
+    # dot (.) match on class attributes
+    assert_select '#main .entry', 3
+    # verifies an h3 element contains specified value
+    assert_select 'h3', 'Programming Ruby 1.9'
+    # verifies format contains atleast '$'and two decimal places
+    # in price class attr
+    assert_select '.price', /\$[,\d]+\.\d\d/
   end
 
 end
